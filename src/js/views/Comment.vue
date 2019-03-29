@@ -1,6 +1,7 @@
 <template>
     <div>
-        <mt-button type="primary" size="large">发表评论</mt-button>
+        <textarea maxlength="120" placeholder="请输入评论~~~" v-model="msg" @keyup.enter="sendComment"></textarea>
+        <mt-button type="primary" size="large" @click="sendComment">发表评论</mt-button>
         <ul>
             <li v-for="(item, index) in list" :key="index">
                 <p class="user">
@@ -20,7 +21,8 @@ export default {
     data() {
         return {
             list: [],
-            page: 1
+            page: 1,
+            msg: ''
         }
     },
     methods: {
@@ -39,6 +41,24 @@ export default {
             //         this.list = this.list.concat(res.data.message);
             //     })
             this.getComments()
+        },
+        sendComment () {
+            const record = this.msg.trim();
+            this.msg = '';
+            this.axios.post(`/postcomment/${this.id}`,{
+                content: record
+            }).then( res => {
+                if(res.data.status===0){
+                    // console.log(res.data.message)
+                    this.list.unshift({
+                        user_name: '匿名用户',
+                        content:record,
+                        add_time: new Date().toJSON()
+                    })
+                }
+            }).catch( err => {
+                console.log(err.message);
+            })
         }
     },
     props: ["id"],
@@ -49,6 +69,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
+    textarea {
+        font-size: 13px;
+        color: #3a3a3a;
+
+    }
+
     ul {
         padding: 0;
         li {
