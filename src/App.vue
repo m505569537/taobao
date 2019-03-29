@@ -4,7 +4,9 @@
         <mt-header fixed title="固定在顶部"></mt-header>
 
         <!-- body -->
-        <router-view></router-view>
+        <transition>
+            <router-view></router-view>        
+        </transition>
 
         <!-- footer -->
         <nav class="mui-bar mui-bar-tab">
@@ -39,6 +41,8 @@ export default {
         padding: 0px;
         margin: 0px;
         padding-top: 40px;
+        padding-bottom: 50px;
+        overflow-x: hidden;
 
         .footer {
             position:fixed;
@@ -53,5 +57,25 @@ export default {
                 text-align: center
             }
         }
+    }
+
+    .v-enter {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+
+    .v-leave-to {
+        opacity: 0;
+        transform: translateX(-100%);
+        position: absolute
+    }
+
+    .v-enter-active, .v-leave-active {
+        transition: all 0.4s ease
+    }
+
+    .mui-bar {
+        box-shadow: 0 0;
+        border-top: 1px solid #d2d2d2
     }
 </style>

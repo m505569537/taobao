@@ -28,3 +28,26 @@
             > Vue.prototype.axios = axios然后使用时，为   
             > this.axios.get(url).then().catch()
         3. vue中的变量，除了使用 {{msg}}外， 需要使用数据绑定的形式，即v-bind
+
+2. 六宫格的实现
+
+
+
+## 组件之间的切换过程
++ 利用transition 标签包裹 router-view ， 同时为enter和leave添加样式
+    ```
+    .v-enter {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+
+    .v-leave-to {
+        opacity: 0;
+        transform: translateX(-100%);
+        position: absolute
+    }
+
+    .v-enter-active, .v-leave-active {
+        transition: all 0.5s ease
+    }
+    ```
