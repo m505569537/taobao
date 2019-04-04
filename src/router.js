@@ -1,11 +1,13 @@
 import VueRouter from 'vue-router'
 
-import Home from './js/views/Home.vue'
-import Member from './js/views/Member.vue'
-import Search from './js/views/Search.vue'
-import Shopcar from './js/views/Shopcar.vue'
-import NewsList from './js/views/NewsList.vue'
-import NewsInfo from './js/views/NewsInfo.vue'
+import Home from './js/views/tabbar/Home.vue'
+import Member from './js/views/tabbar/Member.vue'
+import Search from './js/views/tabbar/Search.vue'
+import Shopcar from './js/views/tabbar/Shopcar.vue'
+import NewsList from './js/views/news/NewsList.vue'
+import NewsInfo from './js/views/news/NewsInfo.vue'
+import PhotoList from './js/views/photos/PhotoList.vue'
+import PhotoInfo from './js/views/photos/PhotoInfo.vue'
 
 const router = new VueRouter({
     routes: [
@@ -15,7 +17,9 @@ const router = new VueRouter({
         { path: '/shopping-car', component: Shopcar },
         { path: '/search', component: Search },
         { path: '/home/newslist', component: NewsList },
-        { path: '/home/newslist/:id', component: NewsInfo }
+        { path: '/home/newslist/:id', component: NewsInfo },
+        { path: '/home/photolist', component: PhotoList },
+        { path: '/home/photoinfo/:id', component: PhotoInfo }
     ],
     linkActiveClass: 'mui-active'
 })

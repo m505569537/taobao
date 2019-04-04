@@ -31,6 +31,13 @@
 
 2. 六宫格的实现
 
+### Photos组件的实现
+
++ 重点实现顶部的左右滑动效果，结合MUI中给出的实例进行相应的修改
+> 在使用mui的时候，要引入mui.js文件，因为webpack会将js文件自动打包，利用babel将ES6转换为ES5的严格模式，由于mui.js中使用到了非严格的语法，所以会报错，解决方案，就是在.babelrc中配置  "ignore": ["./src/lib/dist/js/mui.min.js" ],以此来取消严格模式
++ 另外，新一代的浏览器，会使滑动模块的preventDefault不奏效，所以在进行滚动操作的时候会报错，解决方法是：
+> 添加css样式 * {touch-action: none}
+
 
 
 ## 组件之间的切换过程

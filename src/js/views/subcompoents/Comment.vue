@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import {Toast} from 'mint-ui'
 export default {
     data() {
         return {
@@ -45,13 +46,18 @@ export default {
         sendComment () {
             const record = this.msg.trim();
             this.msg = '';
+            if(record==='')
+            {
+                Toast('评论不能为空');
+                return;
+            }
             this.axios.post(`/postcomment/${this.id}`,{
                 content: record
             }).then( res => {
                 if(res.data.status===0){
                     // console.log(res.data.message)
                     this.list.unshift({
-                        user_name: '匿名用户',
+                        user_name: '孙笑川',
                         content:record,
                         add_time: new Date().toJSON()
                     })
@@ -72,7 +78,6 @@ export default {
     textarea {
         font-size: 13px;
         color: #3a3a3a;
-
     }
 
     ul {

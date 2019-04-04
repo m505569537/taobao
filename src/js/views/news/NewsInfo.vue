@@ -6,14 +6,13 @@
             <span>点击: {{msg.click}}</span>
         </p>
         <hr>
-
         <div class="content" v-html="msg.content"></div>
         <new-comm :id="id"></new-comm>
     </div>
 </template>
 
 <script>
-import Comment from './Comment.vue'
+import Comment from '../subcompoents/Comment.vue'
 export default {
     data() {
         return {
