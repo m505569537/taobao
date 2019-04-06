@@ -21,10 +21,10 @@
                     <div class="numbox">
                         <span class="label">购买数量：</span>
                             <!-- <input type="button" :class="['calc',{decrease:(num===1?true:false)}]" value="-" @click="operate('-')"> 这样可以给标签添加类名 -->
-                            <input type="button" class="calc" :value="num===1?'':'-'" @click="operate('-')"><input type="button" disabled :value="num"><input type="button" class="calc" value="+" @click="operate('+')">
+                            <input type="button" class="calc" :value="num===1?'':'-'" @click="operate('-')"><input type="button" disabled :value="num"><input type="button" class="calc" :value="num===60?'':'+'" @click="operate('+')">
                     </div>
                     <mt-button type="primary" size="small">立即购买</mt-button>&nbsp;
-                    <mt-button type="danger" size="small" @click="flag=!flag">加入购物车</mt-button>
+                    <mt-button type="danger" size="small" @click="addRecord">加入购物车</mt-button>
                     
 
                 </div>
@@ -67,24 +67,25 @@ export default {
             lunbo: [],
             info: {},
             num: 1,
-            flag: false
+            flag: false,
+            record: {}
         }
     },
     methods: {
         getGoodsImg () {  //获取轮播图图片
             this.axios.get(`/getthumimages/${this.id}`)
                     .then( res => {
-                        //console.log(res.data.message);
+                        console.log(res.data.message);
                         this.lunbo = res.data.message
                         //console.log(this.lunbo);
                     }).catch( err => {
-                        console.log(err.message);
+                        //console.log(err.message);
                     })
         },
         getGoodsInfo () {   //获取商品信息
             this.axios.get(`/goods/getinfo/${this.id}`)
                     .then( res => {
-                        //console.log(res.data.message[0]);
+                        console.log(res.data.message[0]);
                         this.info = res.data.message[0]
                     })
         },
@@ -98,11 +99,15 @@ export default {
                     break;
             
                 case '+':
+                    if(this.num===this.info.stock_quantity){
+                        break;
+                    }
                     this.num++
                     break;
                 default:
                     break;
             }
+            this.record.num = this.num;
         },
         goDes () {  //通过编程式导航进入商品图文介绍页面
             this.$router.push({ name: 'goodsdes', params: {id: this.id} })
@@ -121,11 +126,26 @@ export default {
             const xDist = badgePosition.left - ballPosition.left;
             const yDist = badgePosition.top - ballPosition.top;
             el.style.transform = `translate(${xDist}px,${yDist}px)`;
-            el.style.transition = 'all .8s ease'
+            el.style.transition = 'all .7s ease'
             done()
         },
         afterEnter (el) {
             this.flag = !this.flag
+        },
+        addRecord () {
+            this.flag = !this.flag;
+            let i = 1;
+            if(i === 1) {
+                this.record = {
+                    src: this.lunbo[0].src,
+                    id: this.info.id,
+                    title: this.info.title,
+                    market: this.info.market_price,
+                    sell: this.info.sell_price,
+                    num: this.num
+                }
+                i++
+            }
         }
     },
     components: {
