@@ -7,7 +7,7 @@
                 <p class="user">
                     <span>第{{index+1}}楼</span>
                     <span>用户: {{item.user_name}}</span>
-                    <span>发表时间: {{item.add_time | dateFormat}}</span>
+                    <span class="right">发表时间: {{item.add_time | comdate}}</span>
                 </p>
                 <p class="con">{{item.content===''? '此人很懒，什么都没说':item.content}}</p>
             </li>
@@ -71,6 +71,16 @@ export default {
     created() {
         this.getComments()
     },
+    filters: {
+        'comdate': function (date) {
+            if(date){
+                return date.substring(0,10) + ' ' + date.substring(11,19)
+            }
+            else {
+                return;
+            }
+        }
+    }
 }
 </script>
 
@@ -88,10 +98,14 @@ export default {
                 margin-bottom: 5px;
             }
             .user {
-                padding: 4px;
+                padding: 4px 20px;
                 background: #b2b2b2;
                 color: #000;
-                font-size: 12px
+                font-size: 12px;
+
+                .right {
+                    float: right;
+                }
             }
             .con {
                 color: #000;

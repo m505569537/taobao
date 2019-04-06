@@ -14,6 +14,14 @@
 4. 通过渲染，放入页面，实现路由
 > 通过将router的linkActiveClass属性修改为'mui-active',实现路由链接激活状态的切换
 
+#  路由导航的方法
+1. 注意： 一定要区分 this.$route 和 this.$router 这两个对象
+2.  this.$route 是路由的【参数对象】，所有路由中的参数， params, query 都属于它
+3.  this.$router 是路由的【导航对象】，用它可以方便的使用JS代码，实现路由的前进，后退，跳转到新的 URL地址
+4. 方法：
+    + 可以通过router-link 来实现路由跳转
+    + 编程式导航
+
 ## 组件的实现
 
 ### Home组件的实现
@@ -39,6 +47,8 @@
 > 添加css样式 * {touch-action: none}
 
 
+### 绘制商品列表
+
 
 ## 组件之间的切换过程
 + 利用transition 标签包裹 router-view ， 同时为enter和leave添加样式
@@ -58,3 +68,11 @@
         transition: all 0.5s ease
     }
     ```
+
+## 尝试在手机上进行项目的预览和测试
+1. 要保证自己的手机可以正常运行
+2. 要保证手机和开发项目的电脑处于同一个WIFI环境中，即手机可以访问到电脑的 IP
+3. 打开自己的项目中package.json 文件，在 dev脚本中，添加一个 --host 指令，把当前电脑ip 地址设置为--host的指令值
+    >   "dev": "webpack-dev-server --open --port 3000 --hot --host 192.168.42.191"  
+    这样就可以将项目启动在 192.168.42.191的ip之上，其跳转url为 192.168.42.191:3000/#/home
+4. 然后，再在手机上打开浏览器，输入地址url，就可以看到视图效果了

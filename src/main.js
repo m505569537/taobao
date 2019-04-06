@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import { Header, Swipe, SwipeItem, Button, LazyLoad } from 'mint-ui'
+import { Header, Swipe, SwipeItem, Button } from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import './lib/dist/css/mui.min.css'
 import './lib/dist/css/icons-extra.css'
+import './lib/dist/js/mui.min.js'
 import axios from 'axios'
 import VuePreview from 'vue-preview'
 
