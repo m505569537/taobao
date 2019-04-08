@@ -20,7 +20,7 @@
 3.  this.$router 是路由的【导航对象】，用它可以方便的使用JS代码，实现路由的前进，后退，跳转到新的 URL地址
 4. 方法：
     + 可以通过router-link 来实现路由跳转
-    + 编程式导航
+    + [编程式导航](https://router.vuejs.org/zh/guide/essentials/navigation.html)
 
 ## 组件的实现
 
