@@ -21,7 +21,7 @@
                     <div class="numbox">
                         <span class="label">购买数量：</span>
                             <!-- <input type="button" :class="['calc',{decrease:(num===1?true:false)}]" value="-" @click="operate('-')"> 这样可以给标签添加类名 -->
-                            <input type="button" class="calc" :value="num===1?'':'-'" @click="operate('-')"><input type="button" disabled :value="num"><input type="button" class="calc" :value="num===60?'':'+'" @click="operate('+')">
+                            <input type="button" class="calc" :value="$store.state.num===1?'':'-'" @click="operate('-')"><input type="button" disabled :value="$store.state.num"><input type="button" class="calc" :value="$store.state.num===info.stock_quantity?'':'+'" @click="operate('+')">
                     </div>
                     <mt-button type="primary" size="small">立即购买</mt-button>&nbsp;
                     <mt-button type="danger" size="small" @click="addRecord">加入购物车</mt-button>
@@ -66,7 +66,6 @@ export default {
             id: this.$route.params.id,
             lunbo: [],
             info: {},
-            num: 1,
             flag: false,
             record: {}
         }
@@ -75,7 +74,7 @@ export default {
         getGoodsImg () {  //获取轮播图图片
             this.axios.get(`/getthumimages/${this.id}`)
                     .then( res => {
-                        console.log(res.data.message);
+                        //console.log(res.data.message);
                         this.lunbo = res.data.message
                         //console.log(this.lunbo);
                     }).catch( err => {
@@ -85,12 +84,12 @@ export default {
         getGoodsInfo () {   //获取商品信息
             this.axios.get(`/goods/getinfo/${this.id}`)
                     .then( res => {
-                        console.log(res.data.message[0]);
+                        //console.log(res.data.message[0]);
                         this.info = res.data.message[0]
                     })
         },
         operate (opt) {    //实现加减法
-            switch (opt) {
+            /* switch (opt) {
                 case '-':
                     if(this.num===1){
                         break;
@@ -106,11 +105,14 @@ export default {
                     break;
                 default:
                     break;
-            }
-            this.record.num = this.num;
+            } */
+            this.$store.commit('addOrDes',{opt, 'max':this.info.stock_quantity})
+            this.record.num = this.$store.state.num;
+            //console.log(this.record.num);
         },
         goDes () {  //通过编程式导航进入商品图文介绍页面
             this.$router.push({ name: 'goodsdes', params: {id: this.id} })
+            console.log(this.$router);
         },
         goCom () {  //通过编程式导航进入商品评论页面
             this.$router.push({ name: 'goodscom', params: {id: this.id} })
@@ -142,10 +144,13 @@ export default {
                     title: this.info.title,
                     market: this.info.market_price,
                     sell: this.info.sell_price,
-                    num: this.num
+                    max: this.info.stock_quantity,
+                    num: this.$store.state.num
                 }
                 i++
             }
+            this.$store.commit("addShop",this.record)
+            // this.$store.commit('confirmNum',{'id':this.id,'num':this.record.num,'sell':this.record.sell})
         }
     },
     components: {
@@ -154,6 +159,9 @@ export default {
     created() {
         this.getGoodsImg();
         this.getGoodsInfo();
+        // this.$store.commit('changeNum',1);
+        //console.log(this.id);
+        this.$store.commit('changeNum', this.id)
     },
     filters: {
         'goodsdate': function (date) {

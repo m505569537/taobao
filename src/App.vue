@@ -1,7 +1,8 @@
 <template>
     <div class="container">
         <!-- Header -->
-        <mt-header fixed title="我佛了"></mt-header>
+        <mt-header fixed title="perfect"></mt-header>
+        <input type="button" value="< 返回" class="goback" @click="goback" v-show="$route.path==='/home'&&this.$store.state.routeList.length===0?false:true">
 
         <!-- body -->
         <transition>
@@ -19,7 +20,7 @@
 				<span class="mui-tab-label">会员</span>
 			</router-link>
 			<router-link class="mui-tab-item1" to="/shopping-car">
-				<span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge" id="badge">0</span></span>
+				<span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge" id="badge">{{$store.state.shoplist.length}}</span></span>
 				<span class="mui-tab-label">购物车</span>
 			</router-link>
 			<router-link class="mui-tab-item1" to="/search">
@@ -32,7 +33,17 @@
 
 <script>
 export default {
-    
+    data() {
+        return {
+            
+        }
+    },
+    methods: {
+        goback () {
+            this.$store.commit('goback')
+            // console.log(this.$router);
+        }
+    },
 }
 </script>
 
@@ -43,6 +54,16 @@ export default {
         padding-top: 40px;
         padding-bottom: 50px;
         overflow-x: hidden;
+
+        .goback {
+            position: absolute;
+            top: 0;
+            z-index: 99;
+            height: 40px;
+            background-color: rgba(0,0,0,0);
+            border: 0;
+            color: white
+        }
 
         .footer {
             position:fixed;
