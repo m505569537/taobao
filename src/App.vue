@@ -56,7 +56,7 @@ export default {
         overflow-x: hidden;
 
         .goback {
-            position: absolute;
+            position: fixed;
             top: 0;
             z-index: 99;
             height: 40px;

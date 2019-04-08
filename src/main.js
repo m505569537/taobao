@@ -110,7 +110,7 @@ const store = new Vuex.Store({
                 state.flag = false;
                 const routePath = state.routeList.pop();
                 //在此，尚且无法访问到this.$router
-                console.log(router, routePath);
+                //console.log(router, routePath);
                 router.push(routePath);
                 // state.flag = true
             }
@@ -142,7 +142,7 @@ var vm = new Vue({
     store,
     watch: {
         '$route': function (to,from) {
-            console.log(to.path, from.path, this.$store.state.flag);
+            //console.log(to.path, from.path, this.$store.state.flag);
             /* if(this.$store.state.routeList.length===0){
                 this.$store.state.routeList.push(from.path);
             } */
@@ -151,7 +151,7 @@ var vm = new Vue({
             } else {
                 this.$store.commit('toggleFlag')
             }
-            console.log(this.$store.state.routeList);
+            //console.log(this.$store.state.routeList);
         }
     },
 })
